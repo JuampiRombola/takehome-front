@@ -1,5 +1,8 @@
 # Pixel Front End Takehome
 
+![CI/CD](https://github.com/juampirombola/takehome-front/workflows/CI/CD/badge.svg)
+[![codecov](https://codecov.io/gh/juampirombola/takehome-front/branch/develop/graph/badge.svg)](https://codecov.io/gh/juampirombola/takehome-front)
+
 As players interact with different games and metaverses, they leave a history of events that define who they are. Every single action might not say much, but the collection of them represents an entity's identity and reputation.
 
 For this take-home, we want you to build a little piece of the platform that will help participants show who they are. We want you to build a web app that takes a Ronin address as input and  shows the set of relevant transactions for that account in the Axie ecosystem, as well as any aggregates that you deem informative. Here are some examples that are not meant to be exhaustive but just give you an idea: claimed SLP on a given period, the scholar's Axies, type of account.
