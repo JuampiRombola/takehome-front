@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Grid, GridItem} from "@chakra-ui/react";
+import {Container, Grid, GridItem, IconButton, Text} from "@chakra-ui/react";
 // import {RoninContext} from "../../services/roninContext";
 import StatBox from "../stat-box/presentational";
 import axs from "../../assets/axs.svg";
@@ -11,6 +11,7 @@ import breed from "../../assets/breed.png";
 import scholar from "../../assets/scholar.png";
 // import investor from "../../assets/investor.png";
 import ProfileType from "../profile-type/presentational";
+import {ExternalLinkIcon} from "@chakra-ui/icons";
 
 const StatsGrid = () => {
     // const {data} = useContext(RoninContext)
@@ -122,6 +123,18 @@ const StatsGrid = () => {
                 </GridItem>
                 <GridItem colSpan={6} />
             </Grid>
+            <Text align='right' color='gray.600' mt={1}>
+                Pixel Front End Take-Home by Juan Pablo Rombolá
+                <IconButton
+                    aria-label='Go to Github'
+                    colorScheme='dark'
+                    size='xs'
+                    ml={1}
+                    mb={1}
+                    icon={<ExternalLinkIcon color='gray.600' />}
+                    onClick={() => window.open("https://github.com/JuampiRombola/takehome-front", "_blank")}
+                />
+            </Text>
         </Container>
     )
 }
