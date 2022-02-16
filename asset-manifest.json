@@ -1,16 +1,18 @@
 {
   "files": {
-    "main.css": "/takehome-front/static/css/main.073c9b0a.css",
-    "main.js": "/takehome-front/static/js/main.b0226fdf.js",
+    "main.css": "/takehome-front/static/css/main.e6c13ad2.css",
+    "main.js": "/takehome-front/static/js/main.dbab8e8e.js",
     "static/js/787.482d52ff.chunk.js": "/takehome-front/static/js/787.482d52ff.chunk.js",
-    "static/media/logo.svg": "/takehome-front/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/axie.png": "/takehome-front/static/media/axie.a57e17e2ec7f3822db76.png",
+    "static/media/slp.svg": "/takehome-front/static/media/slp.c8ce2d10ceaa5da671fd78abaaff4a7e.svg",
+    "static/media/axs.svg": "/takehome-front/static/media/axs.80cb0629be01c80252295dbfe94d50a9.svg",
     "index.html": "/takehome-front/index.html",
-    "main.073c9b0a.css.map": "/takehome-front/static/css/main.073c9b0a.css.map",
-    "main.b0226fdf.js.map": "/takehome-front/static/js/main.b0226fdf.js.map",
+    "main.e6c13ad2.css.map": "/takehome-front/static/css/main.e6c13ad2.css.map",
+    "main.dbab8e8e.js.map": "/takehome-front/static/js/main.dbab8e8e.js.map",
     "787.482d52ff.chunk.js.map": "/takehome-front/static/js/787.482d52ff.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.b0226fdf.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.dbab8e8e.js"
   ]
 }
