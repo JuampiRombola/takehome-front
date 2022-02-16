@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {Container, Grid, GridItem} from "@chakra-ui/react";
+import {Center, Container, Grid, GridItem, Heading, Image} from "@chakra-ui/react";
 import {RoninContext} from "../../services/roninContext";
 import StatBox from "../stat-box/presentational";
 import axs from "../../assets/axs.svg";
@@ -8,14 +8,18 @@ import axie from "../../assets/axie.png";
 import weth from "../../assets/weth.svg";
 import marketplace from "../../assets/marketplace.png";
 import breed from "../../assets/breed.png";
+import scholar from "../../assets/scholar.png";
+import investor from "../../assets/investor.png";
+import ProfileType from "../profile-type/presentational";
 
 const StatsGrid = () => {
     const {data} = useContext(RoninContext)
 
     return (
         <Container maxW='container.lg'>
+            <ProfileType type='Scholar' image={scholar}/>
+            {/*<ProfileType type='Investor' image={investor}/>*/}
             <Grid
-                h='200px'
                 templateRows='repeat(2, 1fr)'
                 templateColumns='repeat(6, 1fr)'
                 gap={4}
@@ -31,7 +35,7 @@ const StatsGrid = () => {
                             subLabelColor: 'blue.200',
                             subTotalColor: '',
                             imagePath: axs,
-                            imageSize: '50px',
+                            imageSize: '48px',
                             imageAlt: 'axs icon'
                         }}
                     />
@@ -63,7 +67,7 @@ const StatsGrid = () => {
                             subLabelColor: 'gray.700',
                             subTotalColor: '',
                             imagePath: axie,
-                            imageSize: '70px',
+                            imageSize: '62px',
                             imageAlt: 'axie icon'
                         }}
                     />
@@ -95,7 +99,7 @@ const StatsGrid = () => {
                             subLabelColor: 'red.700',
                             subTotalColor: '',
                             imagePath: marketplace,
-                            imageSize: '60px',
+                            imageSize: '58px',
                             imageAlt: 'marketplace icon'
                         }}
                     />
@@ -111,7 +115,7 @@ const StatsGrid = () => {
                             subLabelColor: 'yellow.700',
                             subTotalColor: '',
                             imagePath: breed,
-                            imageSize: '60px',
+                            imageSize: '58px',
                             imageAlt: 'breed icon'
                         }}
                     />
