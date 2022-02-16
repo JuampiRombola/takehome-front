@@ -5,6 +5,9 @@ import StatBox from "../stat-box/presentational";
 import axs from "../../assets/axs.svg";
 import slp from "../../assets/slp.svg";
 import axie from "../../assets/axie.png";
+import weth from "../../assets/weth.svg";
+import marketplace from "../../assets/marketplace.png";
+import breed from "../../assets/breed.png";
 
 const StatsGrid = () => {
     const {data} = useContext(RoninContext)
@@ -28,7 +31,7 @@ const StatsGrid = () => {
                             subLabelColor: 'blue.200',
                             subTotalColor: '',
                             imagePath: axs,
-                            imageSize: '60px',
+                            imageSize: '50px',
                             imageAlt: 'axs icon'
                         }}
                     />
@@ -40,11 +43,11 @@ const StatsGrid = () => {
                             subLabel: 'Smooth Love Potion',
                             total: '1315,670',
                             subTotal: '223.36 USD',
-                            labelColor: 'red.500',
-                            subLabelColor: 'red.200',
+                            labelColor: 'pink.500',
+                            subLabelColor: 'pink.200',
                             subTotalColor: '',
                             imagePath: slp,
-                            imageSize: '60px',
+                            imageSize: '55px',
                             imageAlt: 'slp icon'
                         }}
                     />
@@ -53,15 +56,63 @@ const StatsGrid = () => {
                     <StatBox
                         stat={{
                             label: 'AXIE',
-                            subLabel: 'Axie',
+                            subLabel: '.',
                             total: '3',
-                            subTotal: '.',
+                            subTotal: 'Owned',
                             labelColor: 'green.500',
-                            subLabelColor: 'green.200',
-                            subTotalColor: 'gray.700',
+                            subLabelColor: 'gray.700',
+                            subTotalColor: '',
                             imagePath: axie,
                             imageSize: '70px',
                             imageAlt: 'axie icon'
+                        }}
+                    />
+                </GridItem>
+                <GridItem colSpan={2} bg='gray.700' p={5}>
+                    <StatBox
+                        stat={{
+                            label: 'WETH',
+                            subLabel: 'Ronin Wrapped Ether',
+                            total: '5',
+                            subTotal: '15 USD',
+                            labelColor: 'gray.500',
+                            subLabelColor: 'gray.200',
+                            subTotalColor: '',
+                            imagePath: weth,
+                            imageSize: '75px',
+                            imageAlt: 'weth icon'
+                        }}
+                    />
+                </GridItem>
+                <GridItem colSpan={2} bg='gray.700' p={5}>
+                    <StatBox
+                        stat={{
+                            label: 'Axie Sales',
+                            subLabel: '.',
+                            total: '235',
+                            subTotal: 'Last 30 days',
+                            labelColor: 'red.500',
+                            subLabelColor: 'red.700',
+                            subTotalColor: '',
+                            imagePath: marketplace,
+                            imageSize: '60px',
+                            imageAlt: 'marketplace icon'
+                        }}
+                    />
+                </GridItem>
+                <GridItem colSpan={2} bg='gray.700' p={5}>
+                    <StatBox
+                        stat={{
+                            label: 'Breeds',
+                            subLabel: '.',
+                            total: '35',
+                            subTotal: 'Last 30 days',
+                            labelColor: 'yellow.500',
+                            subLabelColor: 'yellow.700',
+                            subTotalColor: '',
+                            imagePath: breed,
+                            imageSize: '60px',
+                            imageAlt: 'breed icon'
                         }}
                     />
                 </GridItem>
