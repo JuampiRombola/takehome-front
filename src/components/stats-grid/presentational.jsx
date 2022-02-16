@@ -1,6 +1,6 @@
-import React, {useContext} from 'react'
-import {Center, Container, Grid, GridItem, Heading, Image} from "@chakra-ui/react";
-import {RoninContext} from "../../services/roninContext";
+import React from 'react'
+import {Container, Grid, GridItem} from "@chakra-ui/react";
+// import {RoninContext} from "../../services/roninContext";
 import StatBox from "../stat-box/presentational";
 import axs from "../../assets/axs.svg";
 import slp from "../../assets/slp.svg";
@@ -9,11 +9,11 @@ import weth from "../../assets/weth.svg";
 import marketplace from "../../assets/marketplace.png";
 import breed from "../../assets/breed.png";
 import scholar from "../../assets/scholar.png";
-import investor from "../../assets/investor.png";
+// import investor from "../../assets/investor.png";
 import ProfileType from "../profile-type/presentational";
 
 const StatsGrid = () => {
-    const {data} = useContext(RoninContext)
+    // const {data} = useContext(RoninContext)
 
     return (
         <Container maxW='container.lg'>
