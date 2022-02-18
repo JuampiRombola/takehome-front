@@ -26,7 +26,7 @@ import {
 } from "./statsKeys";
 
 const StatsGrid = () => {
-    const {data, loading} = useContext(RoninContext)
+    const {data} = useContext(RoninContext)
 
     return (
         <Container maxW='container.lg'>
