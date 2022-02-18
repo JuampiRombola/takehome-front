@@ -1,4 +1,4 @@
-const fetchPlus = (url, options = {}, retries) =>
+const fetchRetry = (url, retries, options = {}) =>
     fetch(url, options)
         .then(res => {
             if (res.ok) {
@@ -8,8 +8,8 @@ const fetchPlus = (url, options = {}, retries) =>
                 throw new Error()
             }
             if (retries > 0) {
-                return fetchPlus(url, options, retries - 1)
+                return fetchRetry(url, retries - 1, options)
             }
         })
 
-export default fetchPlus
+export default fetchRetry

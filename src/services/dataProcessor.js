@@ -57,10 +57,6 @@ const _getActionsFromTransactions = async (rawTransactionsData) => {
     return actions?.data
 }
 
-const _getTokensOwned = (rawTokensData) => {
-    return rawTokensData?.pageProps?.balance?.results
-}
-
 const _getClaimedSLPStat = (rawTransactionsERC20Data) => {
     return rawTransactionsERC20Data
         .filter((tx) => tx?.token_symbol === SLP_KEY_RESPONSE && tx?.from === NULL_ADDRESS)
@@ -71,15 +67,15 @@ const _getClaimedSLPStat = (rawTransactionsERC20Data) => {
 
 const _getAXSStat = (rawTokensData) => {
     return rawTokensData
-        .filter((tx) => tx.tokenSymbol === AXS_KEY_RESPONSE)
-        .map((tx) => formatFloatBalance(tx.balance, tx.tokenDecimals))
+        .filter((tx) => tx.token_symbol === AXS_KEY_RESPONSE)
+        .map((tx) => formatFloatBalance(tx.balance, tx.token_decimals))
         .pop() || '0'
 }
 
 const _getWETHStat = (rawTokensData) => {
     return rawTokensData
-        .filter((tx) => tx.tokenSymbol === WETH_KEY_RESPONSE)
-        .map((tx) => formatFloatBalance(tx.balance, tx.tokenDecimals))
+        .filter((tx) => tx.token_symbol === WETH_KEY_RESPONSE)
+        .map((tx) => formatFloatBalance(tx.balance, tx.token_decimals))
         .pop() || '0'
 }
 
@@ -98,9 +94,18 @@ const _getBreedsStat = (rawActionsData) => {
     return rawActionsData.filter((label) => label === BREED_KEY_TEXT).length.toString()
 }
 
-const convertToDollars = (value, rate) => {
+const _convertToDollars = (value, rate) => {
     return (parseFloat(value) * rate).toFixed(0)
 }
+
+const _isInvestor = (axs, weth) => {
+    return axs !== '0' || weth !== '0'
+}
+
+const _isScholar = (slp, axies) => {
+    return axies >= '3' || slp !== '0'
+}
+
 
 const dataProcessor = {
     getStatsFromAddress: async (address) => {
@@ -109,33 +114,34 @@ const dataProcessor = {
         }
         try {
             const rawTokensData = await roninClient.getTokens(address)
-            const rawTokensOwned = _getTokensOwned(rawTokensData)
+            const rawTokensOwned = rawTokensData?.results || []
             const rawTransactionsERC20Data = await _getTransactionsLoopBack(address, roninClient.getTransactionsERC20)
             const rawTransactionsData = await _getTransactionsLoopBack(address, roninClient.getTransactions)
             const rawActionsData = await _getActionsFromTransactions(rawTransactionsData)
             const exchangeRate = await roninClient.getExchangeRate()
 
             const slp = _getClaimedSLPStat(rawTransactionsERC20Data)
+            const axies = _getAxiesStat(rawTokensOwned)
             const axs = _getAXSStat(rawTokensOwned)
             const weth = _getWETHStat(rawTokensOwned)
 
             return {
                 isValidAddress: true,
-                isInvestor: axs !== '0' || weth !== '0',
+                isInvestor: _isInvestor(axs, weth),
+                isScholar: !_isInvestor(axs, weth) && _isScholar(slp, axies),
                 stats: {
                     [SLP_KEY]: slp,
                     [AXS_KEY]: axs,
                     [WETH_KEY]: weth,
-                    [AXIES_KEY]: _getAxiesStat(rawTokensOwned),
+                    [AXIES_KEY]: axies,
                     [BOUGHT_AXIES_KEY]:  _getBoughtAxiesStat(rawActionsData),
                     [BREEDS_KEY]: _getBreedsStat(rawActionsData),
-                    [AXS_DOLLARS_KEY]: convertToDollars(axs, exchangeRate?.axs?.usd),
-                    [WETH_DOLLARS_KEY]: convertToDollars(weth, exchangeRate?.eth?.usd),
-                    [SLP_DOLLARS_KEY]: convertToDollars(slp, exchangeRate?.slp?.usd)
+                    [AXS_DOLLARS_KEY]: _convertToDollars(axs, exchangeRate?.axs?.usd),
+                    [WETH_DOLLARS_KEY]: _convertToDollars(weth, exchangeRate?.eth?.usd),
+                    [SLP_DOLLARS_KEY]: _convertToDollars(slp, exchangeRate?.slp?.usd)
                 }
             }
         } catch (e) {
-            console.log('entra')
             return ({
                 isValidAddress: false
             })

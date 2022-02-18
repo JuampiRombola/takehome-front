@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, GridItem, Heading, Image} from "@chakra-ui/react";
+import {Heading, Image, Wrap, WrapItem} from "@chakra-ui/react";
 
 const ProfileType = (props) => {
     const {
@@ -8,18 +8,14 @@ const ProfileType = (props) => {
     } = props
 
     return (
-        <Grid
-            templateRows='repeat(1, 1fr)'
-            templateColumns='repeat(12, 1fr)'
-            mb={10}
-        >
-            <GridItem colSpan={1}>
+        <Wrap mx={1} mb={10} justify={['center', 'center', 'center', 'left']}>
+            <WrapItem>
                 <Image boxSize='70px' src={image} alt={`${type} icon`} />
-            </GridItem>
-            <GridItem colSpan={10} ml={2}>
-                <Heading mt={4}>{type}</Heading>
-            </GridItem>
-        </Grid>
+            </WrapItem>
+            <WrapItem>
+                <Heading ml={2} mt={4}>{type}</Heading>
+            </WrapItem>
+        </Wrap>
     )
 }
 

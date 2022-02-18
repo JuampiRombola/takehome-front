@@ -1,30 +1,31 @@
 import parseAddress from "../utils/parseAddress";
-import fetchPlus from "./fetchRetry";
+import fetchRetry from "./fetchRetry";
 
-const BASE_RONIN_URL = `https://explorer.roninchain.com`;
+const BASE_RONIN_URL = `https://explorer.roninchain.com/api`;
+const MAX_RETRIES = 5
 
 const roninClient = {
     getTokens: async (address) => {
-        return await fetchPlus(`${BASE_RONIN_URL}/_next/data/UITHlIJIOn5fyqyXWX6gT/address/ronin%3A${parseAddress(address)}/token-holdings.json`, {}, 4)
+        return await fetchRetry(`${BASE_RONIN_URL}/tokenbalances/0x${parseAddress(address)}`, MAX_RETRIES)
     },
     getTransactions: async (address, page, pageSize) => {
-        return await fetchPlus(`${BASE_RONIN_URL}/api/txs/0x${parseAddress(address)}?from=${page}&size=${pageSize}`, {}, 4)
+        return await fetchRetry(`${BASE_RONIN_URL}/txs/0x${parseAddress(address)}?from=${page}&size=${pageSize}`, MAX_RETRIES)
     },
     getTransactionsERC20: async (address, page, pageSize) => {
-        return fetchPlus(`${BASE_RONIN_URL}/api/tokentxs?addr=0x${parseAddress(address)}&from=${page}&size=${pageSize}&token=ERC20`, {}, 4)
+        return fetchRetry(`${BASE_RONIN_URL}/tokentxs?addr=0x${parseAddress(address)}&from=${page}&size=${pageSize}&token=ERC20`, MAX_RETRIES)
     },
     getActions: async (payload) => {
-        return await fetchPlus("https://decoder.roninchain.com/decoder/actions", {
+        return await fetchRetry("https://decoder.roninchain.com/decoder/actions", MAX_RETRIES, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload)
-        }, 4)
+        })
     },
     getExchangeRate: async () => {
-        return await fetchPlus('https://exchange-rate.axieinfinity.com/', {}, 4)
+        return await fetchRetry('https://exchange-rate.axieinfinity.com/', MAX_RETRIES)
     }
 }
 

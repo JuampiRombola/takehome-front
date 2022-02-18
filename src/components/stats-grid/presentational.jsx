@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {Container, Grid, GridItem, IconButton, Text} from "@chakra-ui/react";
+import {Container, IconButton, Text, Wrap, WrapItem} from "@chakra-ui/react";
 import {RoninContext} from "../../services/roninContext";
 import StatBox from "../stat-box/presentational";
 import axs from "../../assets/axs.svg";
@@ -18,26 +18,24 @@ import {
     AXS_DOLLARS_KEY,
     AXS_KEY,
     BOUGHT_AXIES_KEY,
-    BREEDS_KEY, SLP_DOLLARS_KEY,
+    BREEDS_KEY,
+    SLP_DOLLARS_KEY,
     SLP_KEY,
     WETH_DOLLARS_KEY,
     WETH_KEY
 } from "./statsKeys";
 
 const StatsGrid = () => {
-    const {data, loading} = useContext(RoninContext)
+    const {data} = useContext(RoninContext)
 
     return (
         <Container maxW='container.lg'>
-            {!loading && data.hasOwnProperty('isInvestor') && data.isInvestor && <ProfileType type='Investor profile' image={investor}/>}
-            {!loading && data.hasOwnProperty('isInvestor') && !data.isInvestor && <ProfileType type='Scholar profile' image={scholar}/>}
-            {(loading || !data.hasOwnProperty('isInvestor')) && <ProfileType type="Investor or scholar profile?" image={question}/>}
-            <Grid
-                templateRows='repeat(2, 1fr)'
-                templateColumns='repeat(6, 1fr)'
-                gap={4}
-            >
-                <GridItem colSpan={2} bg='gray.700' p={5}>
+            {data?.isInvestor && <ProfileType type='Investor profile' image={investor}/>}
+            {data?.isScholar && <ProfileType type='Scholar profile' image={scholar}/>}
+            {!data?.isInvestor && !data?.isScholar && <ProfileType type="Investor or scholar profile?" image={question}/>}
+
+            <Wrap justify='center'>
+                <WrapItem w='320px' bg='gray.700' p={5}>
                     <StatBox
                         stat={{
                             label: 'AXS',
@@ -52,8 +50,8 @@ const StatsGrid = () => {
                             imageAlt: 'axs icon'
                         }}
                     />
-                </GridItem>
-                <GridItem colSpan={2} bg='gray.700' p={5}>
+                </WrapItem>
+                <WrapItem w='320px' bg='gray.700' p={5}>
                     <StatBox
                         stat={{
                             label: 'Claimed SLP (last 30 days)',
@@ -68,8 +66,8 @@ const StatsGrid = () => {
                             imageAlt: 'slp icon'
                         }}
                     />
-                </GridItem>
-                <GridItem colSpan={2} bg='gray.700' p={5}>
+                </WrapItem>
+                <WrapItem w='320px' bg='gray.700' p={5}>
                     <StatBox
                         stat={{
                             label: 'AXIE',
@@ -84,8 +82,8 @@ const StatsGrid = () => {
                             imageAlt: 'axie icon'
                         }}
                     />
-                </GridItem>
-                <GridItem colSpan={2} bg='gray.700' p={5}>
+                </WrapItem>
+                <WrapItem w='320px' bg='gray.700' p={5}>
                     <StatBox
                         stat={{
                             label: 'WETH',
@@ -100,8 +98,8 @@ const StatsGrid = () => {
                             imageAlt: 'weth icon'
                         }}
                     />
-                </GridItem>
-                <GridItem colSpan={2} bg='gray.700' p={5}>
+                </WrapItem>
+                <WrapItem w='320px' bg='gray.700' p={5}>
                     <StatBox
                         stat={{
                             label: 'Bought Axies',
@@ -116,8 +114,8 @@ const StatsGrid = () => {
                             imageAlt: 'marketplace icon'
                         }}
                     />
-                </GridItem>
-                <GridItem colSpan={2} bg='gray.700' p={5}>
+                </WrapItem>
+                <WrapItem w='320px' bg='gray.700' p={5}>
                     <StatBox
                         stat={{
                             label: 'Breeds',
@@ -132,10 +130,9 @@ const StatsGrid = () => {
                             imageAlt: 'breed icon'
                         }}
                     />
-                </GridItem>
-                <GridItem colSpan={6} />
-            </Grid>
-            <Text align='right' color='gray.500' mt={1}>
+                </WrapItem>
+            </Wrap>
+            <Text align={['center', 'center', 'center', 'right']} color='gray.500' mt={1}>
                 Pixel Front End Take-Home by Juan Pablo Rombolá
                 <IconButton
                     aria-label='Go to Github'
