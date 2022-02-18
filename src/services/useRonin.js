@@ -1,23 +1,28 @@
 import {useEffect, useState} from 'react'
-import roninClient from './roninClient'
+import dataProcessor from "./dataProcessor";
 
 const useRonin = () => {
-    const [address, setAddress] = useState("")
+    const [address, setAddress] = useState('')
+    const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
 
     useEffect(() => {
-        const fetchData = async () => {
-            const rawData = await roninClient.getTokens(address)
-            setData({
-                balance: rawData?.pageProps?.balance
-            })
+        const fetchDataFromAddress = async () => {
+            setLoading(true)
+            setData({})
+            const statsFromAddress = await dataProcessor.getStatsFromAddress(address)
+            setData(statsFromAddress)
+            setLoading(false)
         }
-        fetchData()
+        fetchDataFromAddress()
     }, [address])
 
     return {
         data,
-        setAddress
+        address,
+        loading,
+        setAddress,
+        setLoading
     }
 }
 

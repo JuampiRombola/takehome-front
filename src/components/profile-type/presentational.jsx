@@ -4,7 +4,7 @@ import {Grid, GridItem, Heading, Image} from "@chakra-ui/react";
 const ProfileType = (props) => {
     const {
         type,
-        image
+        image,
     } = props
 
     return (
@@ -14,10 +14,10 @@ const ProfileType = (props) => {
             mb={10}
         >
             <GridItem colSpan={1}>
-                <Image boxSize='70px' src={image} alt='investor icon' />
+                <Image boxSize='70px' src={image} alt={`${type} icon`} />
             </GridItem>
             <GridItem colSpan={10} ml={2}>
-                <Heading mt={4}>{type} profile</Heading>
+                <Heading mt={4}>{type}</Heading>
             </GridItem>
         </Grid>
     )

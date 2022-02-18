@@ -1,6 +1,6 @@
-import React from 'react'
-import {Container, Grid, GridItem} from "@chakra-ui/react";
-// import {RoninContext} from "../../services/roninContext";
+import React, {useContext} from 'react'
+import {Container, Grid, GridItem, IconButton, Text} from "@chakra-ui/react";
+import {RoninContext} from "../../services/roninContext";
 import StatBox from "../stat-box/presentational";
 import axs from "../../assets/axs.svg";
 import slp from "../../assets/slp.svg";
@@ -9,16 +9,29 @@ import weth from "../../assets/weth.svg";
 import marketplace from "../../assets/marketplace.png";
 import breed from "../../assets/breed.png";
 import scholar from "../../assets/scholar.png";
-// import investor from "../../assets/investor.png";
+import investor from "../../assets/investor.png";
+import question from "../../assets/question.png";
 import ProfileType from "../profile-type/presentational";
+import {ExternalLinkIcon} from "@chakra-ui/icons";
+import {
+    AXIES_KEY,
+    AXS_DOLLARS_KEY,
+    AXS_KEY,
+    BOUGHT_AXIES_KEY,
+    BREEDS_KEY, SLP_DOLLARS_KEY,
+    SLP_KEY,
+    WETH_DOLLARS_KEY,
+    WETH_KEY
+} from "./statsKeys";
 
 const StatsGrid = () => {
-    // const {data} = useContext(RoninContext)
+    const {data, loading} = useContext(RoninContext)
 
     return (
         <Container maxW='container.lg'>
-            <ProfileType type='Scholar' image={scholar}/>
-            {/*<ProfileType type='Investor' image={investor}/>*/}
+            {!loading && data.hasOwnProperty('isInvestor') && data.isInvestor && <ProfileType type='Investor profile' image={investor}/>}
+            {!loading && data.hasOwnProperty('isInvestor') && !data.isInvestor && <ProfileType type='Scholar profile' image={scholar}/>}
+            {(loading || !data.hasOwnProperty('isInvestor')) && <ProfileType type="Investor or scholar profile?" image={question}/>}
             <Grid
                 templateRows='repeat(2, 1fr)'
                 templateColumns='repeat(6, 1fr)'
@@ -29,8 +42,8 @@ const StatsGrid = () => {
                         stat={{
                             label: 'AXS',
                             subLabel: 'Axie Infinity Shard',
-                            total: '345,670',
-                            subTotal: '23.36 USD',
+                            total: data.hasOwnProperty('stats') ? data.stats[AXS_KEY] : '0',
+                            subTotal: `${data.hasOwnProperty('stats') ? data.stats[AXS_DOLLARS_KEY] : '0'} USD`,
                             labelColor: 'blue.500',
                             subLabelColor: 'blue.200',
                             subTotalColor: '',
@@ -43,10 +56,10 @@ const StatsGrid = () => {
                 <GridItem colSpan={2} bg='gray.700' p={5}>
                     <StatBox
                         stat={{
-                            label: 'SLP',
+                            label: 'Claimed SLP (last 30 days)',
                             subLabel: 'Smooth Love Potion',
-                            total: '1315,670',
-                            subTotal: '223.36 USD',
+                            total: data.hasOwnProperty('stats') ? data.stats[SLP_KEY] : '0',
+                            subTotal: `${data.hasOwnProperty('stats') ? data.stats[SLP_DOLLARS_KEY] : '0'} USD`,
                             labelColor: 'pink.500',
                             subLabelColor: 'pink.200',
                             subTotalColor: '',
@@ -61,7 +74,7 @@ const StatsGrid = () => {
                         stat={{
                             label: 'AXIE',
                             subLabel: '.',
-                            total: '3',
+                            total: data.hasOwnProperty('stats') ? data.stats[AXIES_KEY] : '0',
                             subTotal: 'Owned',
                             labelColor: 'green.500',
                             subLabelColor: 'gray.700',
@@ -77,8 +90,8 @@ const StatsGrid = () => {
                         stat={{
                             label: 'WETH',
                             subLabel: 'Ronin Wrapped Ether',
-                            total: '5',
-                            subTotal: '15 USD',
+                            total: data.hasOwnProperty('stats') ? data.stats[WETH_KEY] : '0',
+                            subTotal: `${data.hasOwnProperty('stats') ? data.stats[WETH_DOLLARS_KEY] : '0'} USD`,
                             labelColor: 'gray.500',
                             subLabelColor: 'gray.200',
                             subTotalColor: '',
@@ -91,9 +104,9 @@ const StatsGrid = () => {
                 <GridItem colSpan={2} bg='gray.700' p={5}>
                     <StatBox
                         stat={{
-                            label: 'Axie Sales',
+                            label: 'Bought Axies',
                             subLabel: '.',
-                            total: '235',
+                            total: data.hasOwnProperty('stats') ? data.stats[BOUGHT_AXIES_KEY] : '0',
                             subTotal: 'Last 30 days',
                             labelColor: 'red.500',
                             subLabelColor: 'red.700',
@@ -109,7 +122,7 @@ const StatsGrid = () => {
                         stat={{
                             label: 'Breeds',
                             subLabel: '.',
-                            total: '35',
+                            total: data.hasOwnProperty('stats') ? data.stats[BREEDS_KEY] : '0',
                             subTotal: 'Last 30 days',
                             labelColor: 'yellow.500',
                             subLabelColor: 'yellow.700',
@@ -122,6 +135,18 @@ const StatsGrid = () => {
                 </GridItem>
                 <GridItem colSpan={6} />
             </Grid>
+            <Text align='right' color='gray.500' mt={1}>
+                Pixel Front End Take-Home by Juan Pablo Rombolá
+                <IconButton
+                    aria-label='Go to Github'
+                    colorScheme='dark'
+                    size='xs'
+                    ml={1}
+                    mb={1}
+                    icon={<ExternalLinkIcon color='gray.600' />}
+                    onClick={() => window.open("https://github.com/JuampiRombola/takehome-front", "_blank")}
+                />
+            </Text>
         </Container>
     )
 }
