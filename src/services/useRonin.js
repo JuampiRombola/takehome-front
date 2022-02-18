@@ -21,7 +21,8 @@ const useRonin = () => {
         data,
         address,
         loading,
-        setAddress
+        setAddress,
+        setLoading
     }
 }
 

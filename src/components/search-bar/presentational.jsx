@@ -1,10 +1,11 @@
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import {CircularProgress, Input, InputGroup, InputLeftElement, InputRightElement} from "@chakra-ui/react";
 import {CheckIcon, SearchIcon, SmallCloseIcon} from "@chakra-ui/icons";
 import {RoninContext} from "../../services/roninContext";
 
 const SearchBar = () => {
-    const {address, setAddress, loading, data} = useContext(RoninContext)
+    const [timeoutId, setTimeoutId] = useState(null);
+    const {address, setAddress, loading, setLoading, data} = useContext(RoninContext)
 
     const calculateBorderColor = () => {
         if (loading || !address || !data.hasOwnProperty('isValidAddress')) {
@@ -23,6 +24,14 @@ const SearchBar = () => {
         return data.isValidAddress ? (<CheckIcon color='green.500' />) : (<SmallCloseIcon color='red.500' />)
     }
 
+    const searchAddress = (e) => {
+        setLoading(e.target.value !== '')
+        clearTimeout(timeoutId)
+        setTimeoutId(setTimeout(() => {
+            setAddress(e.target.value)
+        }, 1000))
+    }
+
     return (
         <InputGroup>
             <InputLeftElement children={<SearchIcon color='gray.400' />} m={1} />
@@ -33,7 +42,7 @@ const SearchBar = () => {
                 bg='gray.700'
                 errorBorderColor={calculateBorderColor()}
                 _placeholder={{ color: 'white' }}
-                onChange={(e) => {setAddress(e.target.value)}} />
+                onChange={searchAddress} />
                 <InputRightElement m={1} children={getRightIcon()}/>
         </InputGroup>
     )
