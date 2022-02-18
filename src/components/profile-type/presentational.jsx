@@ -8,7 +8,7 @@ const ProfileType = (props) => {
     } = props
 
     return (
-        <Wrap mb={10} justify={['center', 'center', 'center', 'left']}>
+        <Wrap mx={1} mb={10} justify={['center', 'center', 'center', 'left']}>
             <WrapItem>
                 <Image boxSize='70px' src={image} alt={`${type} icon`} />
             </WrapItem>
