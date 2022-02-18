@@ -9,7 +9,7 @@ const roninClient = {
         return response
     },
     getTransactions: async (address, page, pageSize) => {
-        let response = await fetch(`${BASE_RONIN_URL}/_next/data/UITHlIJIOn5fyqyXWX6gT/address/ronin%3A${parseAddress(address)}/txs.json?p=${page}&ps=${pageSize}`)
+        let response = await fetch(`${BASE_RONIN_URL}/api/txs/0x${parseAddress(address)}?from=${page}&size=${pageSize}`)
         response = await response.json()
         return response
     },
@@ -23,10 +23,15 @@ const roninClient = {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload)
-        });
+        })
+        response = await response.json()
+        return response
+    },
+    getExchangeRate: async () => {
+        let response = await fetch('https://exchange-rate.axieinfinity.com/')
         response = await response.json()
         return response
     }

@@ -13,7 +13,16 @@ import investor from "../../assets/investor.png";
 import question from "../../assets/question.png";
 import ProfileType from "../profile-type/presentational";
 import {ExternalLinkIcon} from "@chakra-ui/icons";
-import {AXIES_KEY, AXS_KEY, BOUGHT_AXIES_KEY, BREEDS_KEY, SLP_KEY, WETH_KEY} from "./statsKeys";
+import {
+    AXIES_KEY,
+    AXS_DOLLARS_KEY,
+    AXS_KEY,
+    BOUGHT_AXIES_KEY,
+    BREEDS_KEY, SLP_DOLLARS_KEY,
+    SLP_KEY,
+    WETH_DOLLARS_KEY,
+    WETH_KEY
+} from "./statsKeys";
 
 const StatsGrid = () => {
     const {data, loading} = useContext(RoninContext)
@@ -22,7 +31,7 @@ const StatsGrid = () => {
         <Container maxW='container.lg'>
             {!loading && data.hasOwnProperty('isInvestor') && data.isInvestor && <ProfileType type='Investor profile' image={investor}/>}
             {!loading && data.hasOwnProperty('isInvestor') && !data.isInvestor && <ProfileType type='Scholar profile' image={scholar}/>}
-            {loading && <ProfileType type="Investor or scholar profile?" image={question}/>}
+            {(loading || !data.hasOwnProperty('isInvestor')) && <ProfileType type="Investor or scholar profile?" image={question}/>}
             <Grid
                 templateRows='repeat(2, 1fr)'
                 templateColumns='repeat(6, 1fr)'
@@ -34,7 +43,7 @@ const StatsGrid = () => {
                             label: 'AXS',
                             subLabel: 'Axie Infinity Shard',
                             total: data.hasOwnProperty('stats') ? data.stats[AXS_KEY] : '0',
-                            subTotal: '23.36 USD',
+                            subTotal: `${data.hasOwnProperty('stats') ? data.stats[AXS_DOLLARS_KEY] : '0'} USD`,
                             labelColor: 'blue.500',
                             subLabelColor: 'blue.200',
                             subTotalColor: '',
@@ -47,26 +56,10 @@ const StatsGrid = () => {
                 <GridItem colSpan={2} bg='gray.700' p={5}>
                     <StatBox
                         stat={{
-                            label: 'WETH',
-                            subLabel: 'Ronin Wrapped Ether',
-                            total: data.hasOwnProperty('stats') ? data.stats[WETH_KEY] : '0',
-                            subTotal: '15 USD',
-                            labelColor: 'gray.500',
-                            subLabelColor: 'gray.200',
-                            subTotalColor: '',
-                            imagePath: weth,
-                            imageSize: '75px',
-                            imageAlt: 'weth icon'
-                        }}
-                    />
-                </GridItem>
-                <GridItem colSpan={2} bg='gray.700' p={5}>
-                    <StatBox
-                        stat={{
                             label: 'Claimed SLP (last 30 days)',
                             subLabel: 'Smooth Love Potion',
                             total: data.hasOwnProperty('stats') ? data.stats[SLP_KEY] : '0',
-                            subTotal: '223.36 USD',
+                            subTotal: `${data.hasOwnProperty('stats') ? data.stats[SLP_DOLLARS_KEY] : '0'} USD`,
                             labelColor: 'pink.500',
                             subLabelColor: 'pink.200',
                             subTotalColor: '',
@@ -89,6 +82,22 @@ const StatsGrid = () => {
                             imagePath: axie,
                             imageSize: '62px',
                             imageAlt: 'axie icon'
+                        }}
+                    />
+                </GridItem>
+                <GridItem colSpan={2} bg='gray.700' p={5}>
+                    <StatBox
+                        stat={{
+                            label: 'WETH',
+                            subLabel: 'Ronin Wrapped Ether',
+                            total: data.hasOwnProperty('stats') ? data.stats[WETH_KEY] : '0',
+                            subTotal: `${data.hasOwnProperty('stats') ? data.stats[WETH_DOLLARS_KEY] : '0'} USD`,
+                            labelColor: 'gray.500',
+                            subLabelColor: 'gray.200',
+                            subTotalColor: '',
+                            imagePath: weth,
+                            imageSize: '75px',
+                            imageAlt: 'weth icon'
                         }}
                     />
                 </GridItem>

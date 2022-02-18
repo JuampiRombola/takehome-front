@@ -1,7 +1,15 @@
-import mockRoninClient from "../mocks/mockRoninClient";
+import roninClient from "./roninClient";
 import getTimestampSubtractDays from "../utils/getTimestampSubtractDays";
 import formatFloatBalance from "../utils/formatFloatbalance";
-import {AXIES_KEY, AXS_KEY, BOUGHT_AXIES_KEY, BREEDS_KEY, SLP_KEY, WETH_KEY} from "../components/stats-grid/statsKeys";
+import {
+    AXIES_KEY,
+    AXS_DOLLARS_KEY,
+    AXS_KEY,
+    BOUGHT_AXIES_KEY,
+    BREEDS_KEY, SLP_DOLLARS_KEY,
+    SLP_KEY, WETH_DOLLARS_KEY,
+    WETH_KEY
+} from "../components/stats-grid/statsKeys";
 
 const MAX_LOOP_BACK = 30;
 const PAGE_SIZE = 100;
@@ -42,7 +50,10 @@ const _getActionsFromTransactions = async (rawTransactionsData) => {
             callData: tx.input,
             logs: []
         }))
-    const actions = await mockRoninClient.getActions({ txs })
+    if (txs.length === 0) {
+        return []
+    }
+    const actions = await roninClient.getActions({ txs })
     return actions?.data
 }
 
@@ -87,27 +98,39 @@ const _getBreedsStat = (rawActionsData) => {
     return rawActionsData.filter((label) => label === BREED_KEY_TEXT).length.toString()
 }
 
+const convertToDollars = (value, rate) => {
+    return (parseFloat(value) * rate).toFixed(0)
+}
+
 const dataProcessor = {
     getStatsFromAddress: async (address) => {
-        const rawTokensData = await mockRoninClient.getTokens(address)
+        if (address === '') {
+            return {}
+        }
+        const rawTokensData = await roninClient.getTokens(address)
         const rawTokensOwned = _getTokensOwned(rawTokensData)
-        const rawTransactionsERC20Data = await _getTransactionsLoopBack(address, mockRoninClient.getTransactionsERC20)
-        const rawTransactionsData = await _getTransactionsLoopBack(address, mockRoninClient.getTransactions)
+        const rawTransactionsERC20Data = await _getTransactionsLoopBack(address, roninClient.getTransactionsERC20)
+        const rawTransactionsData = await _getTransactionsLoopBack(address, roninClient.getTransactions)
         const rawActionsData = await _getActionsFromTransactions(rawTransactionsData)
+        const exchangeRate = await roninClient.getExchangeRate()
 
-        const boughtAxies = _getBoughtAxiesStat(rawActionsData)
-        const breeds = _getBreedsStat(rawActionsData)
+        const slp = _getClaimedSLPStat(rawTransactionsERC20Data)
+        const axs = _getAXSStat(rawTokensOwned)
+        const weth = _getWETHStat(rawTokensOwned)
 
         return {
             isValidAddress: true, //TODO: do it dynamic
-            isInvestor: boughtAxies !== '0' || breeds !== '0',
+            isInvestor: axs !== '0' || weth !== '0',
             stats: {
-                [SLP_KEY]: _getClaimedSLPStat(rawTransactionsERC20Data),
-                [AXS_KEY]: _getAXSStat(rawTokensOwned),
-                [WETH_KEY]: _getWETHStat(rawTokensOwned),
+                [SLP_KEY]: slp,
+                [AXS_KEY]: axs,
+                [WETH_KEY]: weth,
                 [AXIES_KEY]: _getAxiesStat(rawTokensOwned),
-                [BOUGHT_AXIES_KEY]: boughtAxies,
-                [BREEDS_KEY]: breeds
+                [BOUGHT_AXIES_KEY]:  _getBoughtAxiesStat(rawActionsData),
+                [BREEDS_KEY]: _getBreedsStat(rawActionsData),
+                [AXS_DOLLARS_KEY]: convertToDollars(axs, exchangeRate?.axs?.usd),
+                [WETH_DOLLARS_KEY]: convertToDollars(weth, exchangeRate?.eth?.usd),
+                [SLP_DOLLARS_KEY]: convertToDollars(slp, exchangeRate?.slp?.usd)
             }
         }
     }
