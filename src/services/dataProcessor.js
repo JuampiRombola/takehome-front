@@ -107,31 +107,38 @@ const dataProcessor = {
         if (address === '') {
             return {}
         }
-        const rawTokensData = await roninClient.getTokens(address)
-        const rawTokensOwned = _getTokensOwned(rawTokensData)
-        const rawTransactionsERC20Data = await _getTransactionsLoopBack(address, roninClient.getTransactionsERC20)
-        const rawTransactionsData = await _getTransactionsLoopBack(address, roninClient.getTransactions)
-        const rawActionsData = await _getActionsFromTransactions(rawTransactionsData)
-        const exchangeRate = await roninClient.getExchangeRate()
+        try {
+            const rawTokensData = await roninClient.getTokens(address)
+            const rawTokensOwned = _getTokensOwned(rawTokensData)
+            const rawTransactionsERC20Data = await _getTransactionsLoopBack(address, roninClient.getTransactionsERC20)
+            const rawTransactionsData = await _getTransactionsLoopBack(address, roninClient.getTransactions)
+            const rawActionsData = await _getActionsFromTransactions(rawTransactionsData)
+            const exchangeRate = await roninClient.getExchangeRate()
 
-        const slp = _getClaimedSLPStat(rawTransactionsERC20Data)
-        const axs = _getAXSStat(rawTokensOwned)
-        const weth = _getWETHStat(rawTokensOwned)
+            const slp = _getClaimedSLPStat(rawTransactionsERC20Data)
+            const axs = _getAXSStat(rawTokensOwned)
+            const weth = _getWETHStat(rawTokensOwned)
 
-        return {
-            isValidAddress: true, //TODO: do it dynamic
-            isInvestor: axs !== '0' || weth !== '0',
-            stats: {
-                [SLP_KEY]: slp,
-                [AXS_KEY]: axs,
-                [WETH_KEY]: weth,
-                [AXIES_KEY]: _getAxiesStat(rawTokensOwned),
-                [BOUGHT_AXIES_KEY]:  _getBoughtAxiesStat(rawActionsData),
-                [BREEDS_KEY]: _getBreedsStat(rawActionsData),
-                [AXS_DOLLARS_KEY]: convertToDollars(axs, exchangeRate?.axs?.usd),
-                [WETH_DOLLARS_KEY]: convertToDollars(weth, exchangeRate?.eth?.usd),
-                [SLP_DOLLARS_KEY]: convertToDollars(slp, exchangeRate?.slp?.usd)
+            return {
+                isValidAddress: true,
+                isInvestor: axs !== '0' || weth !== '0',
+                stats: {
+                    [SLP_KEY]: slp,
+                    [AXS_KEY]: axs,
+                    [WETH_KEY]: weth,
+                    [AXIES_KEY]: _getAxiesStat(rawTokensOwned),
+                    [BOUGHT_AXIES_KEY]:  _getBoughtAxiesStat(rawActionsData),
+                    [BREEDS_KEY]: _getBreedsStat(rawActionsData),
+                    [AXS_DOLLARS_KEY]: convertToDollars(axs, exchangeRate?.axs?.usd),
+                    [WETH_DOLLARS_KEY]: convertToDollars(weth, exchangeRate?.eth?.usd),
+                    [SLP_DOLLARS_KEY]: convertToDollars(slp, exchangeRate?.slp?.usd)
+                }
             }
+        } catch (e) {
+            console.log('entra')
+            return ({
+                isValidAddress: false
+            })
         }
     }
 }
