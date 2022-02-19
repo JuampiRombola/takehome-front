@@ -4,8 +4,8 @@ import {CheckIcon, SearchIcon, SmallCloseIcon} from "@chakra-ui/icons";
 import {RoninContext} from "../../services/roninContext";
 
 const SearchBar = () => {
-    const [timeoutId, setTimeoutId] = useState(null);
     const {address, setAddress, loading, setLoading, data} = useContext(RoninContext)
+    const [timeoutId, setTimeoutId] = useState(null);
 
     const calculateBorderColor = () => {
         if (loading || !address || !data.hasOwnProperty('isValidAddress')) {
@@ -43,7 +43,7 @@ const SearchBar = () => {
                 errorBorderColor={calculateBorderColor()}
                 _placeholder={{ color: 'white' }}
                 onChange={searchAddress} />
-                <InputRightElement m={1} children={getRightIcon()}/>
+            <InputRightElement m={1} children={getRightIcon()}/>
         </InputGroup>
     )
 }
