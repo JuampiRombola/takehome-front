@@ -1,5 +1,5 @@
 import parseAddress from "../utils/parseAddress";
-import fetchRetry from "./fetchRetry";
+import fetchRetry from "../utils/fetchRetry";
 
 const BASE_RONIN_URL = `https://explorer.roninchain.com/api`;
 const MAX_RETRIES = 5
