@@ -12,6 +12,9 @@ This is the resolution of a **24h** technical test
 
 Demo live: https://juampirombola.github.io/takehome-front/
 
+![image](https://user-images.githubusercontent.com/11811232/154808699-7355d42c-a8c8-48ce-94b5-f28d28775f29.png)
+
+
 
 ## Problem
 
