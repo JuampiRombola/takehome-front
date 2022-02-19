@@ -4,9 +4,11 @@ const fetchRetry = (url, retries, options = {}) =>
             if (res.ok) {
                 return res.json()
             }
-            if (res.status === 404) {
-                throw new Error()
+            if (retries > 0) {
+                return fetchRetry(url, retries - 1, options)
             }
+        })
+        .catch(() => {
             if (retries > 0) {
                 return fetchRetry(url, retries - 1, options)
             }
