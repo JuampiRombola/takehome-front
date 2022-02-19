@@ -8,7 +8,7 @@ This is the resolution of a **24h** technical test
 
 **Technologies**: React, Chakra UI and Jest for testing   
 **CI/CD**: Github Actions and codecov   
-**Project management**: Github Kanban   
+**Project management**: [Github kanban board](https://github.com/JuampiRombola/takehome-front/projects/1)   
 
 Demo live: https://juampirombola.github.io/takehome-front/
 
