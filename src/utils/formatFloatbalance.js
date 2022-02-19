@@ -1,5 +1,6 @@
 const formatFloatBalance = (balance, tokenDecimals) => {
-    const num = balance.slice(0, balance.length - tokenDecimals) + "." + balance.slice(balance.length - tokenDecimals)
+    const balanceFilled = balance.padStart(tokenDecimals, '0')
+    const num = balanceFilled.slice(0, balanceFilled.length - tokenDecimals) + "." + balanceFilled.slice(balanceFilled.length - tokenDecimals)
     return parseFloat(num).toFixed(6)
 }
 

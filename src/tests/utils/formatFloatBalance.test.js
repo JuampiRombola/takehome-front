@@ -12,4 +12,9 @@ describe('formatFloatBalance', () => {
         expect(result).toEqual('5.254873')
     })
 
+    test('Float number with padding', async () => {
+        const result = formatFloatBalance('1009290973930906', 18)
+        expect(result).toEqual('0.001009')
+    })
+
 })
