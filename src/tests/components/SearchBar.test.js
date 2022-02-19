@@ -57,7 +57,7 @@ describe("SearchBar", () => {
     });
 
     test('wrong address', () => {
-        const context = {...mockContext, address: 'test', data: {isValidAddress: false}}
+        const context = { ...mockContext, address: 'test', data: { isValidAddress: false } }
 
         mountSearchBar(context);
 
@@ -68,7 +68,7 @@ describe("SearchBar", () => {
     });
 
     test('accepted address', () => {
-        const context = {...mockContext, address: 'test', data: {isValidAddress: true}}
+        const context = { ...mockContext, address: 'test', data: { isValidAddress: true } }
 
         mountSearchBar(context);
 
