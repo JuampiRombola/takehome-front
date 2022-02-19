@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/takehome-front/static/js/main.b6a70bd6.js",
+    "main.js": "/takehome-front/static/js/main.f7aae85f.js",
     "static/js/787.482d52ff.chunk.js": "/takehome-front/static/js/787.482d52ff.chunk.js",
     "static/media/axie.png": "/takehome-front/static/media/axie.a57e17e2ec7f3822db76.png",
     "static/media/breed.png": "/takehome-front/static/media/breed.c84dc69ce56de7e3f127.png",
@@ -11,10 +11,10 @@
     "static/media/axs.svg": "/takehome-front/static/media/axs.80cb0629be01c80252295dbfe94d50a9.svg",
     "index.html": "/takehome-front/index.html",
     "static/media/weth.svg": "/takehome-front/static/media/weth.5ed786b026a141819383dd6e667c42d3.svg",
-    "main.b6a70bd6.js.map": "/takehome-front/static/js/main.b6a70bd6.js.map",
+    "main.f7aae85f.js.map": "/takehome-front/static/js/main.f7aae85f.js.map",
     "787.482d52ff.chunk.js.map": "/takehome-front/static/js/787.482d52ff.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.b6a70bd6.js"
+    "static/js/main.f7aae85f.js"
   ]
 }
