@@ -35,7 +35,7 @@ const _getTransactionsLoopBack = async (address, fetchFunction) => {
         totalTransactions = rawTransactionsData?.total
         currentTimestamp = rawTransactionsData?.results?.slice(-1).pop()?.timestamp
         currentPage += 1
-        transactions = [...transactions, ...rawTransactionsData?.results]
+        transactions = [...transactions, ...rawTransactionsData?.results.filter((tx) => tx.timestamp >= stopTimestamp)]
     }
 
     return transactions
