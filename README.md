@@ -12,8 +12,8 @@ This is the resolution of a **24h** technical test
 
 Demo live: https://juampirombola.github.io/takehome-front/
 
----
-# Problem
+
+## Problem
 
 As players interact with different games and metaverses, they leave a history of events that define who they are. Every single action might not say much, but the collection of them represents an entity's identity and reputation.
 
@@ -33,7 +33,6 @@ We should be able to execute your solution without much hassle, and the app shou
 
 Let us know if you have any questions. Happy coding!
 
----
 
 ## Available Scripts
 
