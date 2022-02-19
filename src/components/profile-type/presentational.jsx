@@ -13,7 +13,7 @@ const ProfileType = (props) => {
                 <Image boxSize='70px' src={image} alt={`${type} icon`} />
             </WrapItem>
             <WrapItem>
-                <Heading ml={2} mt={4}>{type}</Heading>
+                <Heading ml={2} mt={4} align='center'>{type}</Heading>
             </WrapItem>
         </Wrap>
     )
