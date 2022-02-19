@@ -1,7 +1,7 @@
-import {act, render, screen} from '@testing-library/react';
-import SearchBar from '../components/search-bar/presentational';
+import {act} from '@testing-library/react';
+import SearchBar from '../../components/search-bar/presentational';
 import ReactDOM from "react-dom";
-import {RoninContext} from "../services/roninContext";
+import {RoninContext} from "../../services/roninContext";
 
 describe("SearchBar", () => {
     let container;
