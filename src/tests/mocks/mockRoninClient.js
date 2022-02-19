@@ -9,14 +9,19 @@ import mockScholarTransactionsPage2 from "./responses/mockScholarTransactionsPag
 import mockInvestorTransactionsPage1 from "./responses/mockInvestorTransactionsPage1";
 import mockInvestorTransactionsPage2 from "./responses/mockInvestorTransactionsPage2";
 import mockActions from "./responses/mockActions";
+import mockExchange from "./responses/mockExchange";
 
-import parseAddress from "../utils/parseAddress";
+import parseAddress from "../../utils/parseAddress";
 
 const mockRoninClient = {
     getTokens: async (address) => {
-        return (parseAddress(address) === '4d51e82c92c5e89176f006d8425330aa5ff3a4c4')
-            ? mockScholarTokenHolding
-            : mockInvestorTokenHolding
+        if (parseAddress(address) === '4d51e82c92c5e89176f006d8425330aa5ff3a4c4') {
+            return mockScholarTokenHolding
+        }
+        if (parseAddress(address) === '2b9fd5ebc7a6ce8539e2aec96774544b8d559732') {
+            return mockInvestorTokenHolding
+        }
+        throw Error
     },
     getTransactionsERC20: async (address, page, _) => {
         if (parseAddress(address) === '4d51e82c92c5e89176f006d8425330aa5ff3a4c4') {
@@ -32,6 +37,9 @@ const mockRoninClient = {
     },
     getActions: async (_) => {
         return mockActions
+    },
+    getExchangeRate: async () => {
+        return mockExchange
     }
 }
 

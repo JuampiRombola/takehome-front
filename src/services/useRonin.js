@@ -1,10 +1,12 @@
 import {useEffect, useState} from 'react'
-import dataProcessor from "./dataProcessor";
+import createDataProcessor from "./dataProcessor";
+import roninClient from "./roninClient";
 
 const useRonin = () => {
     const [address, setAddress] = useState('')
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
+    const dataProcessor = createDataProcessor(roninClient)
 
     useEffect(() => {
         const fetchDataFromAddress = async () => {

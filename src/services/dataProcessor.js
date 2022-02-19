@@ -1,4 +1,3 @@
-import roninClient from "./roninClient";
 import getTimestampSubtractDays from "../utils/getTimestampSubtractDays";
 import formatFloatBalance from "../utils/formatFloatbalance";
 import {
@@ -42,7 +41,7 @@ const _getTransactionsLoopBack = async (address, fetchFunction) => {
     return transactions
 }
 
-const _getActionsFromTransactions = async (rawTransactionsData) => {
+const _getActionsFromTransactions = async (roninClient, rawTransactionsData) => {
     const txs = rawTransactionsData
         .filter((tx) => tx?.to === AXIE_MARKET_ADDRESS || tx?.to === AXIE_CONTRACT_ADDRESS)
         .map((tx) => ({
@@ -81,7 +80,7 @@ const _getWETHStat = (rawTokensData) => {
 
 const _getAxiesStat = (rawTokensData) => {
     return rawTokensData
-        .filter((tx) => tx.tokenSymbol === AXIES_KEY_RESPONSE)
+        .filter((tx) => tx.token_symbol === AXIES_KEY_RESPONSE)
         .map((tx) => tx.balance)
         .pop() || '0'
 }
@@ -106,8 +105,7 @@ const _isScholar = (slp, axies) => {
     return axies >= '3' || slp !== '0'
 }
 
-
-const dataProcessor = {
+const createDataProcessor = (roninClient) => ({
     getStatsFromAddress: async (address) => {
         if (address === '') {
             return {}
@@ -117,7 +115,7 @@ const dataProcessor = {
             const rawTokensOwned = rawTokensData?.results || []
             const rawTransactionsERC20Data = await _getTransactionsLoopBack(address, roninClient.getTransactionsERC20)
             const rawTransactionsData = await _getTransactionsLoopBack(address, roninClient.getTransactions)
-            const rawActionsData = await _getActionsFromTransactions(rawTransactionsData)
+            const rawActionsData = await _getActionsFromTransactions(roninClient, rawTransactionsData)
             const exchangeRate = await roninClient.getExchangeRate()
 
             const slp = _getClaimedSLPStat(rawTransactionsERC20Data)
@@ -147,6 +145,6 @@ const dataProcessor = {
             })
         }
     }
-}
+})
 
-export default dataProcessor
+export default createDataProcessor
