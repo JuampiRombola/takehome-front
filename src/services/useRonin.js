@@ -6,9 +6,9 @@ const useRonin = () => {
     const [address, setAddress] = useState('')
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
-    const dataProcessor = createDataProcessor(roninClient)
 
     useEffect(() => {
+        const dataProcessor = createDataProcessor(roninClient)
         const fetchDataFromAddress = async () => {
             setLoading(true)
             setData({})
