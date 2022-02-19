@@ -1,20 +1,20 @@
-import {act} from '@testing-library/react';
-import StatsGrid from '../../components/stats-grid/presentational';
-import ReactDOM from "react-dom";
-import {RoninContext} from "../../services/roninContext";
+import {act} from '@testing-library/react'
+import StatsGrid from '../../components/stats-grid/presentational'
+import ReactDOM from "react-dom"
+import {RoninContext} from "../../services/roninContext"
 
 describe("StatsGrid", () => {
-    let container;
+    let container
 
     beforeEach(() => {
-        container = document.createElement('div');
-        document.body.appendChild(container);
-    });
+        container = document.createElement('div')
+        document.body.appendChild(container)
+    })
 
     afterEach(() => {
-        document.body.removeChild(container);
-        container = null;
-    });
+        document.body.removeChild(container)
+        container = null
+    })
 
     const mountSearchBar = (mockContext) => {
         act(() => {
@@ -22,18 +22,18 @@ describe("StatsGrid", () => {
                 <RoninContext.Provider value={mockContext}>
                     <StatsGrid/>
                 </RoninContext.Provider>
-            ), container);
-        });
+            ), container)
+        })
     }
 
     test('render stats grid for the first time', () => {
         const mockContext = { data: {}}
-        mountSearchBar(mockContext);
+        mountSearchBar(mockContext)
 
-        const statsGrid = container.firstChild;
-        const profileType = statsGrid.firstChild;
+        const statsGrid = container.firstChild
+        const profileType = statsGrid.firstChild
 
-        expect(statsGrid).toBeInTheDocument();
+        expect(statsGrid).toBeInTheDocument()
         expect(profileType).toBeInTheDocument();
         expect(profileType).toHaveTextContent('Investor or scholar profile?')
     });

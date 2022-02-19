@@ -1,5 +1,5 @@
-import createDataProcessor from "../../services/dataProcessor";
-import mockRoninClient from "../mocks/mockRoninClient";
+import createDataProcessor from "../../services/dataProcessor"
+import mockRoninClient from "../mocks/mockRoninClient"
 import {
     AXIES_KEY, AXS_DOLLARS_KEY,
     AXS_KEY,
@@ -7,14 +7,14 @@ import {
     BREEDS_KEY, SLP_DOLLARS_KEY,
     SLP_KEY, WETH_DOLLARS_KEY,
     WETH_KEY
-} from "../../components/stats-grid/statsKeys";
+} from "../../components/stats-grid/statsKeys"
 
 describe('data processor', () => {
     const dataProcessor = createDataProcessor(mockRoninClient)
 
     test('Scholar address', async () => {
         const address = 'ronin:4d51e82c92c5e89176f006d8425330aa5ff3a4c4'
-        const statsFromAddress = await dataProcessor.getStatsFromAddress(address);
+        const statsFromAddress = await dataProcessor.getStatsFromAddress(address)
         const expectedResult = {
             isInvestor: false,
             isScholar: true,
@@ -31,12 +31,12 @@ describe('data processor', () => {
                 [SLP_DOLLARS_KEY]: '83'
             }
         }
-        expect(statsFromAddress).toEqual(expectedResult);
-    });
+        expect(statsFromAddress).toEqual(expectedResult)
+    })
 
     test('Investor address', async () => {
         const address = 'ronin:2b9fd5ebc7a6ce8539e2aec96774544b8d559732'
-        const statsFromAddress = await dataProcessor.getStatsFromAddress(address);
+        const statsFromAddress = await dataProcessor.getStatsFromAddress(address)
         const expectedResult = {
             isInvestor: true,
             isScholar: false,
@@ -53,23 +53,23 @@ describe('data processor', () => {
                 [SLP_DOLLARS_KEY]: '0'
             }
         }
-        expect(statsFromAddress).toEqual(expectedResult);
-    });
+        expect(statsFromAddress).toEqual(expectedResult)
+    })
 
     test('Wrong address', async () => {
         const address = 'f'
-        const statsFromAddress = await dataProcessor.getStatsFromAddress(address);
+        const statsFromAddress = await dataProcessor.getStatsFromAddress(address)
         const expectedResult = {
             isValidAddress: false
         }
-        expect(statsFromAddress).toEqual(expectedResult);
-    });
+        expect(statsFromAddress).toEqual(expectedResult)
+    })
 
     test('Empty address', async () => {
         const address = ''
-        const statsFromAddress = await dataProcessor.getStatsFromAddress(address);
+        const statsFromAddress = await dataProcessor.getStatsFromAddress(address)
         const expectedResult = {}
-        expect(statsFromAddress).toEqual(expectedResult);
-    });
+        expect(statsFromAddress).toEqual(expectedResult)
+    })
 
-});
+})

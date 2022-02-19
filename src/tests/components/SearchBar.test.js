@@ -1,10 +1,10 @@
-import {act} from '@testing-library/react';
-import SearchBar from '../../components/search-bar/presentational';
-import ReactDOM from "react-dom";
-import {RoninContext} from "../../services/roninContext";
+import {act} from '@testing-library/react'
+import SearchBar from '../../components/search-bar/presentational'
+import ReactDOM from "react-dom"
+import {RoninContext} from "../../services/roninContext"
 
 describe("SearchBar", () => {
-    let container;
+    let container
 
     const mockContext = {
         address: '',
@@ -15,14 +15,14 @@ describe("SearchBar", () => {
     }
 
     beforeEach(() => {
-        container = document.createElement('div');
-        document.body.appendChild(container);
-    });
+        container = document.createElement('div')
+        document.body.appendChild(container)
+    })
 
     afterEach(() => {
-        document.body.removeChild(container);
-        container = null;
-    });
+        document.body.removeChild(container)
+        container = null
+    })
 
     const mountSearchBar = (mockContext) => {
         act(() => {
@@ -30,25 +30,25 @@ describe("SearchBar", () => {
                 <RoninContext.Provider value={mockContext}>
                     <SearchBar/>
                 </RoninContext.Provider>
-            ), container);
-        });
+            ), container)
+        })
     }
 
     test('render search bar for the first time', () => {
-        mountSearchBar(mockContext);
+        mountSearchBar(mockContext)
 
-        const searchBar = container.firstChild;
-        const rightElement = searchBar.lastChild;
-        const rightIcon = rightElement.firstChild;
+        const searchBar = container.firstChild
+        const rightElement = searchBar.lastChild
+        const rightIcon = rightElement.firstChild
 
-        expect(searchBar).toBeInTheDocument();
-        expect(rightElement).toBeInTheDocument();
+        expect(searchBar).toBeInTheDocument()
+        expect(rightElement).toBeInTheDocument()
         expect(rightIcon).toBeNull()
-    });
+    })
 
     test('loading search bar', () => {
         const context = {...mockContext, loading: true}
-        mountSearchBar(context);
+        mountSearchBar(context)
 
         const searchBar = container.firstChild;
         const rightIcon = searchBar.lastChild.firstChild;

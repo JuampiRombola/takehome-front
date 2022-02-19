@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import reportWebVitals from './reportWebVitals'
 import {ChakraProvider} from '@chakra-ui/react'
-import theme from "./theme";
-import {RoninContext} from "./services/roninContext";
-import useRonin from "./services/useRonin";
-import Toolbar from "./components/toolbar/presentational";
-import StatsGrid from "./components/stats-grid/presentational";
+import theme from "./theme"
+import {RoninContext} from "./services/roninContext"
+import useRonin from "./services/useRonin"
+import Toolbar from "./components/toolbar/presentational"
+import StatsGrid from "./components/stats-grid/presentational"
 
 const MainApp = () => {
     const roninHook = useRonin()

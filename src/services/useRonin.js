@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
-import createDataProcessor from "./dataProcessor";
-import roninClient from "./roninClient";
+import createDataProcessor from "./dataProcessor"
+import roninClient from "./roninClient"
 
 const useRonin = () => {
     const [address, setAddress] = useState('')

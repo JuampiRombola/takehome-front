@@ -1,17 +1,17 @@
-import mockScholarTokenHolding from "./responses/mockScholarTokenHolding";
-import mockInvestorTokenHolding from "./responses/mockInvestorTokenHolding";
-import mockInvestorTransactionsERC20Page1Scholar from "./responses/mockScholarTransactionsERC20Page1";
-import mockScholarTransactionsERC20Page2 from "./responses/mockScholarTransactionsERC20Page2";
-import mockInvestorTransactionsERC20Page1 from "./responses/mockInvestorTransactionsERC20Page1";
-import mockInvestorTransactionsERC20Page2 from "./responses/mockInvestorTransactionsERC20Page2";
-import mockScholarTransactionsPage1 from "./responses/mockScholarTransactionsPage1";
-import mockScholarTransactionsPage2 from "./responses/mockScholarTransactionsPage2";
-import mockInvestorTransactionsPage1 from "./responses/mockInvestorTransactionsPage1";
-import mockInvestorTransactionsPage2 from "./responses/mockInvestorTransactionsPage2";
-import mockActions from "./responses/mockActions";
-import mockExchange from "./responses/mockExchange";
+import mockScholarTokenHolding from "./responses/mockScholarTokenHolding"
+import mockInvestorTokenHolding from "./responses/mockInvestorTokenHolding"
+import mockInvestorTransactionsERC20Page1Scholar from "./responses/mockScholarTransactionsERC20Page1"
+import mockScholarTransactionsERC20Page2 from "./responses/mockScholarTransactionsERC20Page2"
+import mockInvestorTransactionsERC20Page1 from "./responses/mockInvestorTransactionsERC20Page1"
+import mockInvestorTransactionsERC20Page2 from "./responses/mockInvestorTransactionsERC20Page2"
+import mockScholarTransactionsPage1 from "./responses/mockScholarTransactionsPage1"
+import mockScholarTransactionsPage2 from "./responses/mockScholarTransactionsPage2"
+import mockInvestorTransactionsPage1 from "./responses/mockInvestorTransactionsPage1"
+import mockInvestorTransactionsPage2 from "./responses/mockInvestorTransactionsPage2"
+import mockActions from "./responses/mockActions"
+import mockExchange from "./responses/mockExchange"
 
-import parseAddress from "../../utils/parseAddress";
+import parseAddress from "../../utils/parseAddress"
 
 const mockRoninClient = {
     getTokens: async (address) => {

@@ -1,5 +1,5 @@
-import getTimestampSubtractDays from "../utils/getTimestampSubtractDays";
-import formatFloatBalance from "../utils/formatFloatbalance";
+import getTimestampSubtractDays from "../utils/getTimestampSubtractDays"
+import formatFloatBalance from "../utils/formatFloatbalance"
 import {
     AXIES_KEY,
     AXS_DOLLARS_KEY,
